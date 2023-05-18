@@ -4,9 +4,9 @@ import cv2
 import pathlib
 
 class recognitor:
-    pytesseract.pytesseract.tesseract_cmd = 'E:/Tesseract-OCR/tesseract.exe'
-    p=pathlib.Path(r'cars\polo_dirty.jpg')
-    cascade_path=pathlib.Path(r'E:\UNIVERSITY\VKR\CarNumberRecognizer\CarNumberRecognizer\PyModule\haarcascade_russian_plate_number\haarcascade_russian_plate_number.xml')
+    pytesseract.pytesseract.tesseract_cmd = 'D:/Tesseract-OCR/tesseract.exe'
+    p=pathlib.Path(r'testvkr\cars\polo_dirty2.jpg')
+    cascade_path=pathlib.Path(r'testvkr\haarcascade_russian_plate_number\haarcascade_russian_plate_number.xml')
     def open_img(img_path):
         carplate_img = cv2.imread(img_path)
         carplate_img = cv2.cvtColor(carplate_img, cv2.COLOR_BGR2RGB)
@@ -16,7 +16,7 @@ class recognitor:
         return carplate_img
 
     def carplate_extract(image, carplate_haar_cascade):
-        carplate_rects = carplate_haar_cascade.detectMultiScale(image, scaleFactor=1.1, minNeighbors=5)
+        carplate_rects = carplate_haar_cascade.detectMultiScale(image, scaleFactor=1.15, minNeighbors=5)
 
         for x, y, w, h in carplate_rects:
             carplate_img = image[y+15:y+h-15, x+25:x+w-15]

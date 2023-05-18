@@ -7,7 +7,7 @@ class header_frame(CTk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
         self.configure(fg_color=("gray78", "gray28"))
-        self.logo = CTk.CTkImage(dark_image=Image.open("logo\pudge.png"), size=(400, 150))
+        self.logo = CTk.CTkImage(dark_image=Image.open("logo\pudge.png"), size=(400, 50))
         self.logo_label = CTk.CTkLabel(master=self, text="", image=self.logo)
         self.logo_label.grid(row=0, column=0)
 
@@ -19,10 +19,25 @@ class source_frame(CTk.CTkFrame):
         self.source_button.grid(row=0, column=0)
         self.source_txt_lbl=CTk.CTkLabel(self, text="", fg_color="white")
         self.source_txt_lbl.grid(row=0, column=1)
+        self.path_source_txt=CTk.CTkEntry(self, width=450, height=50)
+        self.path_source_txt.grid(row=0, column=2)
+        self.clear_btn=CTk.CTkButton(self, text="Очистить путь", width=50, height=50, command=self.clear_btn_action)
+        self.clear_btn.grid(row=0, column=3)
+
+    def clear_btn_action(self):
+        filepath=self.path_source_txt.get()
+        self.path_source_txt.delete(0, len(filepath))
 
     def source_button_action(self):
-        filepath=filedialog.askopenfilename()
+        filepath=filedialog.askopenfilenames()
+        self.path_source_txt.insert(len(self.path_source_txt.get()), filepath)
+        self.path_source_txt.insert(len(self.path_source_txt.get())+1, ' ')
         
+class car_frame(CTk.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
+        self.configure(fg_color=("gray78, gray28"))
+
 
 
 
@@ -37,7 +52,7 @@ class interface(CTk.CTk):
         self.header.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 
         self.source=source_frame(self)
-        self.source.grid(row=0, column=1)
+        self.source.grid(row=0, column=1, sticky="ew")
 
 if __name__ == '__main__':
     app = interface()
